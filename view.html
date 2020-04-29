@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Note App</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Note app</h1>
+      <h3>a semi-decent app to take notes with. </h3>
+      <hr>
+      <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span> Add New
+          Note</button></a>
+      <a href="/api/newentry"><button class="btn btn-danger btn-lg"><span
+            class="fa fa-eye"></span> All Notes</button></a>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card-header">
+          <h3><strong>Saved Notes:</strong></h3>
+        </div>
+        <div class="card-body">
+          <div id="saved-note"></div>
+          <div id="saved-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3><strong>Note Search</strong></h3>
+          </div>
+          <div class="card-body">
+            <input type="text" id="note-search" class="form-control">
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span
+                  class="fa fa-search"></span> Search
+                notes.</button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Result:</strong></oh..h3>
+          </div>
+          <div class="card-body">
+            <div id="new-note"></div>
+            <div id="new-content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#search-btn").on("click", function() {
+
+      var searchedNote = $("#note-search").val().trim();
+
+      console.log(searchedNote)
+
+      searchedNote = searchedNote.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/newentry/" + searchedNote, function(data) {
+        console.log(data)
+        if (data) {
+          $("#stats").show();
+          $("#new-note").text(data.title);
+          console.log(data.title);
+          $("#new-content").text(data.note);
+        } else {
+          $("#new-note").text("Title not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+
+      //i need a function that loops through each item of the object array and ouputs them onto the "saved notes"  secton of the screen. 
+      //THEN i need a delete button for each of those items. jQuery
+
+  </script>
+</body>
+
+</html>
+
