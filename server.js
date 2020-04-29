@@ -12,9 +12,11 @@ var PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Star Wars Characters (DATA)
+// Saved notes: (DATA)
 // =============================================================
-var newEntry = [];
+var newEntry = [{ title: 'title1', note: 'note body 1', routeName: 'title1' },
+{ title: 'title2', note: 'note body 2', routeName: 'title2' },
+{ title: 'title3', note: 'note body 3', routeName: 'title3' }];
 
 // Routes
 // =============================================================

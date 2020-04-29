@@ -32,9 +32,7 @@
         <div class="card-header">
           <h3><strong>Saved Notes:</strong></h3>
         </div>
-        <div class="card-body">
-          <div id="saved-note"></div>
-          <div id="saved-content"></div>
+        <div class="card-body" id="saved-notes">
         </div>
       </div>
     </div>
@@ -74,6 +72,25 @@
   </div>
 
   <script type="text/javascript">
+    $.get("/api/newentry", function(data) {
+      // console.log(data)
+      // console.log(data[0].title)
+      // console.log(data[0].note)
+
+      for (i = 0; i < data.length; i++) {
+
+        $("#saved-notes").append('<div id="#saved-note"' + [i] + '><strong>' + data[i].title + '</strong></div>')
+        $("#saved-notes").append('<div id="#saved-content"' + [i] + '>' + data[i].note + '</div>')
+        $("#saved-notes").append('<button id="delete' + [i] + '" class="btn btn-primary btn-md"><span class="fa fa-minus"></span></button><br><br>')
+
+        $("#delete"+[i]).on("click", function() {
+          console.log("deleted" + [i])
+        })
+      }
+    })
+
+
+    
     $("#search-btn").on("click", function() {
 
       var searchedNote = $("#note-search").val().trim();
